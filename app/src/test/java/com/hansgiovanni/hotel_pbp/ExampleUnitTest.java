@@ -1,4 +1,4 @@
-package com.pbpc_e.hotel_pbp;
+package com.hansgiovanni.hotel_pbp;
 
 import org.junit.Test;
 
