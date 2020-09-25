@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hotel_PBP</string>
+    <string name="subtitle">Indonesia</string>
+    <string name="title">Cloud Hotel</string>
 </resources>
