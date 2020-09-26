@@ -9,31 +9,38 @@
     tools:context="com.hansgiovanni.hotel_pbp.RegisterActivity">
 
     <ImageView
+        android:id="@+id/image_logo"
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/cloud_border"/>
+        android:src="@drawable/cloud_border"
+        android:transitionName="logo" />
 
     <TextView
+        android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="welcome"
-        android:textSize="40sp"
         android:fontFamily="@font/rubik_bold"
-        android:textAllCaps="true"/>
+        android:text="welcome"
+        android:textAllCaps="true"
+        android:textSize="36sp"
+        android:transitionName="title" />
 
     <TextView
+        android:id="@+id/text_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_marginBottom="20dp"
         android:text="Please register to continue"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="16sp"
+        android:transitionName="subtitle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="email"
         android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -77,6 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:transitionName="password"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,11 +95,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/button_register"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
-        android:text="Login"
-        style="@style/Widget.MaterialComponents.Button"/>
+        android:transitionName="main_button"
+        android:text="Register" />
 
     <Button
         android:id="@+id/button_login"
@@ -100,6 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:fontFamily="sans-serif-medium"
+        android:transitionName="sub_button"
         android:text="Already have an account? Login" />
 
 

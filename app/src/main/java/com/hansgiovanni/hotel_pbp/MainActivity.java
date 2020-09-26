@@ -2,10 +2,13 @@ package com.hansgiovanni.hotel_pbp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Pair;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -50,9 +53,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                Pair[] pairs = new Pair[3];
+                pairs[0] = new Pair<View, String>(imgLogo, "logo");
+                pairs[1] = new Pair<View, String>(tvTitle, "title");
+                pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
+                startActivity(intent, options.toBundle());
+
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1500);
             }
-        }, 3000);
+        }, 3500);
+
     }
 }
