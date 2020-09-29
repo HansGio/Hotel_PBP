@@ -1,5 +1,6 @@
 package com.hansgiovanni.hotel_pbp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
@@ -8,23 +9,40 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Pair;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
     TextView tvTitle, tvSubtitle;
-    TextInputLayout inputLayoutEmail, inputLayoutPassword;
+    TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName;
+    TextInputEditText inputEmail, inputPassword;
     ImageView imgLogo;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUI(currentUser);
     }
 
     @Override
@@ -35,27 +53,65 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setEnterTransition(null);
         getWindow().setExitTransition(null);
 
+        mAuth = FirebaseAuth.getInstance();
         btnLogin = findViewById(R.id.button_login);
         btnRegister = findViewById(R.id.button_register);
         imgLogo = findViewById(R.id.image_logo);
         tvTitle = findViewById(R.id.text_title);
         tvSubtitle = findViewById(R.id.text_subtitle);
-        inputLayoutEmail = findViewById(R.id.input_layout_name);
+        inputLayoutName = findViewById(R.id.input_layout_name);
+        inputLayoutEmail = findViewById(R.id.input_layout_email);
         inputLayoutPassword = findViewById(R.id.input_layout_password);
+        inputEmail = findViewById(R.id.input_email);
+        inputPassword = findViewById(R.id.input_password);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
+
+                if (isValid(email, password))
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this, "Authentication Successfull.",
+                                            Toast.LENGTH_SHORT).show();
+                                    // Sign in success, update UI with the signed-in user's information
+//                                    Log.d(TAG, "createUserWithEmail:success");
+//                                    FirebaseUser user = mAuth.getCurrentUser();
+//                                    updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+//                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                                    Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+//                                            Toast.LENGTH_SHORT).show();
+//                                    updateUI(null);
+                                }
+
+                            }
+                        });
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+
                 Pair[] pairs = new Pair[7];
                 pairs[0] = new Pair<View, String>(imgLogo, "logo");
                 pairs[1] = new Pair<View, String>(tvTitle, "title");
                 pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
                 pairs[3] = new Pair<View, String>(btnRegister, "main_button");
                 pairs[4] = new Pair<View, String>(btnLogin, "sub_button");
-                pairs[5] = new Pair<View, String>(inputLayoutEmail, "email");
+                pairs[5] = new Pair<View, String>(inputLayoutName, "email");
                 pairs[6] = new Pair<View, String>(inputLayoutPassword, "password");
+
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
                 startActivity(intent, options.toBundle());
 
@@ -69,5 +125,21 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private boolean isValid(String email, String password) {
+        if (email.isEmpty()){
+            inputLayoutEmail.setError("Please enter email");
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            inputLayoutEmail.setError("Invalid email");
+        } else inputLayoutEmail.setError(null);
+
+        if (password.isEmpty()) {
+            inputLayoutPassword.setError("Please enter password");
+        } else if (password.length() < 6){
+            inputLayoutPassword.setError("Password too short");
+        } else inputLayoutPassword.setError(null);
+
+        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.isEmpty() && password.length() >= 6;
     }
 }

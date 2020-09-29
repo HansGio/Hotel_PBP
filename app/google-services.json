@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1074418264126",
+    "firebase_url": "https://cloudhotel-pbp.firebaseio.com",
+    "project_id": "cloudhotel-pbp",
+    "storage_bucket": "cloudhotel-pbp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074418264126:android:d141c20977881d4348896f",
+        "android_client_info": {
+          "package_name": "com.pbpc_e.hotel_pbp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074418264126-a6nkv80povlpn7d58tgq0hkre07ra5tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoNGoAHtcuGowUkgYn6wqmVPaHB7WbGKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074418264126-a6nkv80povlpn7d58tgq0hkre07ra5tc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

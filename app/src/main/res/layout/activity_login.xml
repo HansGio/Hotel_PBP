@@ -37,11 +37,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:transitionName="email"
-        android:hint="E-mail">
+        android:hint="E-mail"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_email"
@@ -52,12 +53,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:transitionName="password"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_password"
@@ -70,28 +72,27 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:layout_gravity="end"
         android:text="Forget password?" />
 
     <Button
         android:id="@+id/button_login"
-        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
         android:transitionName="main_button"
-        android:text="Login" />
+        android:text="Login"
+        style="@style/Widget.MaterialComponents.Button" />
 
     <Button
         android:id="@+id/button_register"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:fontFamily="sans-serif-medium"
         android:transitionName="sub_button"
-        android:text="New user? Register now" />
+        android:text="New user? Register now"
+        style="@style/Widget.MaterialComponents.Button.TextButton" />
 
 
 </LinearLayout>

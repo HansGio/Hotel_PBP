@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.transition.Slide;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        getWindow().setExitTransition(null);
 
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
@@ -53,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                Pair[] pairs = new Pair[3];
-                pairs[0] = new Pair<View, String>(imgLogo, "logo");
-                pairs[1] = new Pair<View, String>(tvTitle, "title");
-                pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
-                startActivity(intent, options.toBundle());
+
+//                Pair[] pairs = new Pair[3];
+//                pairs[0] = new Pair<View, String>(imgLogo, "logo");
+//                pairs[1] = new Pair<View, String>(tvTitle, "title");
+//                pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
+//
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
+//                startActivity(intent, options.toBundle());
+                startActivity(intent);
 
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override

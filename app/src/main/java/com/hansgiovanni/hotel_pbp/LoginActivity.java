@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.transition.Slide;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+
                 Pair[] pairs = new Pair[7];
                 pairs[0] = new Pair<View, String>(imgLogo, "logo");
                 pairs[1] = new Pair<View, String>(tvTitle, "title");
@@ -55,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 pairs[4] = new Pair<View, String>(btnRegister, "sub_button");
                 pairs[5] = new Pair<View, String>(inputLayoutEmail, "email");
                 pairs[6] = new Pair<View, String>(inputLayoutPassword, "password");
+
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
                 startActivity(intent, options.toBundle());
 
