@@ -1,6 +1,8 @@
 package com.hansgiovanni.hotel_pbp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -15,6 +17,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                if(FirebaseAuth.getInstance().getCurrentUser() != null) intent = new Intent(MainActivity.this, HomeActivity.class);
+                else intent = new Intent(MainActivity.this, LoginActivity.class);
 
 //                Pair[] pairs = new Pair[3];
 //                pairs[0] = new Pair<View, String>(imgLogo, "logo");

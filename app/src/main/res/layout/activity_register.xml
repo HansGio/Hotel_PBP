@@ -42,6 +42,7 @@
         android:transitionName="email"
         android:hint="Name"
         app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -57,6 +58,7 @@
         android:layout_height="wrap_content"
         android:hint="E-mail"
         app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_email_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         android:hint="Phone Number"
         app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -88,6 +91,7 @@
         android:hint="Password"
         android:transitionName="password"
         app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:passwordToggleEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
@@ -102,7 +106,7 @@
         android:id="@+id/button_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
+        android:layout_marginTop="5dp"
         android:transitionName="main_button"
         android:text="Register"
         style="@style/Widget.MaterialComponents.Button" />
@@ -111,9 +115,9 @@
         android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:fontFamily="sans-serif-medium"
         android:transitionName="sub_button"
+        android:textSize="12sp"
         android:text="Already have an account? Login"
         style="@style/Widget.MaterialComponents.Button.TextButton" />
 

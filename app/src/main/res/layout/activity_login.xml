@@ -42,7 +42,8 @@
         android:transitionName="email"
         android:hint="E-mail"
         app:errorEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:startIconDrawable="@drawable/ic_baseline_email_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_email"
@@ -57,9 +58,10 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:transitionName="password"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:passwordToggleEnabled="true"
         app:errorEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_password"
@@ -68,12 +70,6 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Forget password?" />
 
     <Button
         android:id="@+id/button_login"
@@ -88,10 +84,10 @@
         android:id="@+id/button_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:fontFamily="sans-serif-medium"
         android:transitionName="sub_button"
         android:text="New user? Register now"
+        android:textSize="12sp"
         style="@style/Widget.MaterialComponents.Button.TextButton" />
 
 

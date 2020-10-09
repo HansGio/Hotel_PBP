@@ -2,6 +2,7 @@ package com.hansgiovanni.hotel_pbp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -28,8 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
     TextView tvTitle, tvSubtitle;
-    TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName;
-    TextInputEditText inputEmail, inputPassword;
+    TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName, inputLayoutPhone;
+    TextInputEditText inputEmail, inputPassword, inputName, inputPhone;
     ImageView imgLogo;
     private FirebaseAuth mAuth;
 
@@ -62,8 +63,12 @@ public class RegisterActivity extends AppCompatActivity {
         inputLayoutName = findViewById(R.id.input_layout_name);
         inputLayoutEmail = findViewById(R.id.input_layout_email);
         inputLayoutPassword = findViewById(R.id.input_layout_password);
+        inputLayoutName = findViewById(R.id.input_layout_name);
+        inputLayoutPhone = findViewById(R.id.input_layout_phone);
         inputEmail = findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
+        inputName= findViewById(R.id.input_name);
+        inputPhone = findViewById(R.id.input_phone);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
 
@@ -71,29 +76,31 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
+                String name = inputName.getText().toString();
+                String phone = inputPhone.getText().toString();
 
-                if (isValid(email, password))
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Authentication Successfull.",
-                                            Toast.LENGTH_SHORT).show();
-                                    // Sign in success, update UI with the signed-in user's information
-//                                    Log.d(TAG, "createUserWithEmail:success");
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    updateUI(user);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                                    Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                    updateUI(null);
+                if (isValid(email, password, name, phone)){
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
+                                        // If sign in fails, display a message to the user.
+    //                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+    //                                    Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+    //                                            Toast.LENGTH_SHORT).show();
+    //                                    updateUI(null);
+                                    }
+
                                 }
-
-                            }
-                        });
+                            });
+                }
             }
         });
 
@@ -127,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean isValid(String email, String password) {
+    private boolean isValid(String email, String password, String name, String phone) {
         if (email.isEmpty()){
             inputLayoutEmail.setError("Please enter email");
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
@@ -140,6 +147,21 @@ public class RegisterActivity extends AppCompatActivity {
             inputLayoutPassword.setError("Password too short");
         } else inputLayoutPassword.setError(null);
 
-        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.isEmpty() && password.length() >= 6;
+        if (name.isEmpty()) {
+            inputLayoutName.setError("Please enter name");
+        } else if (name.length() < 6){
+            inputLayoutName.setError("Name too short");
+        } else inputLayoutName.setError(null);
+
+        if (phone.isEmpty()) {
+            inputLayoutPhone.setError("Please enter phone number");
+        } else if (phone.length() < 6){
+            inputLayoutPhone.setError("Phone too short");
+        } else inputLayoutPhone.setError(null);
+
+        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                !password.isEmpty() && password.length() >= 6 &&
+                !name.isEmpty() && name.length() >= 6 &&
+                !phone.isEmpty() && phone.length() >= 6;
     }
 }
