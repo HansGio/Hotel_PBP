@@ -23,7 +23,7 @@ public class BookViewModel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.fragment_book);
         binding.recyclerViewKamar.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewKamar.setHasFixedSize(true);
         //get data mahasiswa
