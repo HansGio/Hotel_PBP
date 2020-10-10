@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         final Kamar kmr = result.get(position);
         holder.adapterRecyclerViewBinding.setKmr(kmr);
-
     }
 
     @Override
@@ -49,13 +49,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return result.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         AdapterRecyclerViewBinding adapterRecyclerViewBinding;
+        CardView listKamar;
 
         public MyViewHolder(@NonNull AdapterRecyclerViewBinding adapterRecyclerViewBinding){
             super(adapterRecyclerViewBinding.getRoot());
+            View root = adapterRecyclerViewBinding.getRoot();
             this.adapterRecyclerViewBinding = adapterRecyclerViewBinding;
+
+            listKamar = root.findViewById(R.id.listKamar);
+            listKamar.setOnClickListener(this);
         }
         public void onClick(View view) {
             Toast.makeText(context, "You touch me?", Toast.LENGTH_SHORT).show();

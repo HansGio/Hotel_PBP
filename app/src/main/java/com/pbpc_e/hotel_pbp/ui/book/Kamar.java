@@ -6,6 +6,8 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
+
 
 public class Kamar {
     public String namaKamar;
@@ -54,7 +56,9 @@ public class Kamar {
         this.hargaKamar = hargaKamar;
     }
 
-    public String getStringHargaKamar() { return String.valueOf(hargaKamar); }
+    public String getStringHargaKamar() {
+        return String.valueOf(hargaKamar);
+    }
 
     public void setStringHargaKamar(String hargaKamar) {
         if(!hargaKamar.isEmpty()) {
