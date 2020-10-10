@@ -63,7 +63,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             listKamar.setOnClickListener(this);
         }
         public void onClick(View view) {
-            Toast.makeText(context, "You touch me?", Toast.LENGTH_SHORT).show();
+            Kamar kamar = result.get(getAdapterPosition());
+            String msg = kamar.getNamaKamar();
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         }
     }
 

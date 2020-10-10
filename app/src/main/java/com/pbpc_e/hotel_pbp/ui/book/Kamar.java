@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 
 public class Kamar {
@@ -57,7 +57,7 @@ public class Kamar {
     }
 
     public String getStringHargaKamar() {
-        return String.valueOf(hargaKamar);
+        return new DecimalFormat("#0.00").format(hargaKamar);
     }
 
     public void setStringHargaKamar(String hargaKamar) {

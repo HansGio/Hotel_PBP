@@ -28,7 +28,7 @@ public class DaftarKamar {
             "elegance in this 40 square meter beautifully appointed Deluxe Room. Equipped with large LED screens and high speed " +
             "broadband internet access, guests staying in the Deluxe Room also has complimentary access to Gaharu Spa and Fitness. " +
             "Smoking and non smoking rooms are available on request, however will only be confirmed at check-in.",
-            "AC", 1900000,
+            "AC, Breakfast", 1900000,
             "https://pix10.agoda.net/hotelImages/1061034/-1/e848e7a853da2870cbe38ac4f8f01fd8.jpg?s=1024x768"
     );
 
@@ -36,7 +36,7 @@ public class DaftarKamar {
             "elegance in this 40 square meter beautifully appointed Deluxe Room. Equipped with large LED screens and high speed " +
             "broadband internet access, guests staying in the Deluxe Room also has complimentary access to Gaharu Spa and Fitness. " +
             "Smoking and non smoking rooms are available on request, however will only be confirmed at check-in.",
-            "AC", 2900000,
+            "AC, WiFi", 2900000,
             "https://cf.bstatic.com/images/hotel/max1024x768/625/62570076.jpg"
     );
 
@@ -44,7 +44,7 @@ public class DaftarKamar {
             "elegance in this 40 square meter beautifully appointed Deluxe Room. Equipped with large LED screens and high speed " +
             "broadband internet access, guests staying in the Deluxe Room also has complimentary access to Gaharu Spa and Fitness. " +
             "Smoking and non smoking rooms are available on request, however will only be confirmed at check-in.",
-            "AC", 4900000,
+            "AC, WiFi, Breakfast", 4900000,
             "https://asset.kompas.com/crops/qlKhSCExt0OA2oDO6QsopXCdHj0=/209x0:979x385/750x500/data/photo/2018/07/24/3656116093.jpg"
     );
 
@@ -52,7 +52,7 @@ public class DaftarKamar {
             "elegance in this 40 square meter beautifully appointed Deluxe Room. Equipped with large LED screens and high speed " +
             "broadband internet access, guests staying in the Deluxe Room also has complimentary access to Gaharu Spa and Fitness. " +
             "Smoking and non smoking rooms are available on request, however will only be confirmed at check-in.",
-            "AC", 6900000,
+            "AC, WiFi, Breakfast", 6900000,
             "https://cdn-2.tstatic.net/tribunnews/foto/bank/images/hotel-puncak_20160511_212234.jpg"
     );
 

@@ -55,7 +55,7 @@
                         <TextView
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
-                            android:text="Des"
+                            android:text="Desc"
                             android:textSize="14dp"
                             android:textStyle="bold"/>
                         <TextView
@@ -68,11 +68,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
-                            android:text="Fasilitas"
+                            android:text="Facilities"
                             android:textSize="14dp"
                             android:textStyle="bold"/>
                         <TextView
@@ -87,12 +88,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="Harga"
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -103,8 +103,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
+                            android:layout_alignParentEnd="true"
                             android:text="@{kmr.stringHargaKamar}"
                             style="@style/TextAppearance.MaterialComponents.Headline6"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="/ night"
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
                 </LinearLayout>
