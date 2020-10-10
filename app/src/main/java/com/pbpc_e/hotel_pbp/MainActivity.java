@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                if(FirebaseAuth.getInstance().getCurrentUser() != null) intent = new Intent(MainActivity.this, HomeActivity.class);
+                if(FirebaseAuth.getInstance().getCurrentUser() != null) intent = new Intent(MainActivity.this, MenuActivity.class);
                 else intent = new Intent(MainActivity.this, LoginActivity.class);
 
 //                Pair[] pairs = new Pair[3];
