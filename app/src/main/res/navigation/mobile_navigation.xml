@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.pbpc_e.hotel_pbp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_book"
+        android:name="com.pbpc_e.hotel_pbp.ui.book.BookFragment"
+        android:label="Booking"
+        tools:layout="@layout/fragment_book" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.pbpc_e.hotel_pbp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_about"
+        android:name="com.pbpc_e.hotel_pbp.ui.about.AboutFragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about" />
 </navigation>

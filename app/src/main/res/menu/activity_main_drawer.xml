@@ -9,13 +9,13 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_book"
+            android:icon="@drawable/ic_baseline_hotel_24"
+            android:title="Book a Room Now!" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="About Us" />
     </group>
     <group android:checkableBehavior="single">
         <item android:title="Profile">
@@ -26,7 +26,7 @@
                     android:title="Profile" />
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/ic_baseline_home_24"
+                    android:icon="@drawable/ic_baseline_arrow_back_24"
                     android:title="Logout" />
             </menu>
         </item>

@@ -1,14 +1,14 @@
-package com.pbpc_e.hotel_pbp.ui.gallery;
+package com.pbpc_e.hotel_pbp.ui.book;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class BookViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public BookViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }
