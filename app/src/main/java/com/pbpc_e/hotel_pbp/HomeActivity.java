@@ -1,32 +1,35 @@
-package com.hansgiovanni.hotel_pbp;
+package com.pbpc_e.hotel_pbp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.util.Pair;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static java.security.AccessController.getContext;
-
 public class HomeActivity extends AppCompatActivity {
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
     Button button, button3;
-    ImageButton imageButton;
+    ImageView imageView;
     TextView tv1, tv2, tv3;
     ConstraintLayout date;
 
@@ -35,12 +38,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
         button = findViewById(R.id.button);
         button3 = findViewById(R.id.button3);
         tv1 = findViewById(R.id.textView);
         tv2 = findViewById(R.id.textView2);
         tv3 = findViewById(R.id.textView3);
-        imageButton = findViewById(R.id.imageButton);
+        imageView = findViewById(R.id.imageView);
         date = findViewById(R.id.date);
 
         //CalendarConstraints

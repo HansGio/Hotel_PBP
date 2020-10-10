@@ -1,8 +1,7 @@
-package com.hansgiovanni.hotel_pbp;
+package com.pbpc_e.hotel_pbp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -86,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                        Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                                         startActivity(intent);
                                         finish();
                                     } else {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hansgiovanni.hotel_pbp" >
+    package="com.pbpc_e.hotel_pbp">
 
     <application
         android:allowBackup="true"
@@ -8,11 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.pbpc_e.hotel_pbp.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.pbpc_e.hotel_pbp.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.pbpc_e.hotel_pbp.HomeActivity" />
+        <activity android:name="com.pbpc_e.hotel_pbp.RegisterActivity" />
+        <activity android:name="com.pbpc_e.hotel_pbp.LoginActivity" />
+        <activity android:name="com.pbpc_e.hotel_pbp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

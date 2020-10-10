@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="32dp"
     android:orientation="vertical"
-    tools:context="com.hansgiovanni.hotel_pbp.RegisterActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/image_logo"

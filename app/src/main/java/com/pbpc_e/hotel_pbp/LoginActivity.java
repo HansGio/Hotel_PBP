@@ -1,15 +1,13 @@
-package com.hansgiovanni.hotel_pbp;
+package com.pbpc_e.hotel_pbp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.transition.Slide;
 import android.util.Pair;
 import android.util.Patterns;
 import android.view.View;
@@ -72,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
