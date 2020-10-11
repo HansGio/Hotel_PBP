@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
 
         button = findViewById(R.id.button);
         button3 = findViewById(R.id.button3);
-        tv1 = findViewById(R.id.textView);
+        tv1 = findViewById(R.id.text_email);
         tv2 = findViewById(R.id.textView2);
         tv3 = findViewById(R.id.textView3);
         imageView = findViewById(R.id.imageView);

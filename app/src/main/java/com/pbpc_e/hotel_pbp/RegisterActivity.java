@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -31,6 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName, inputLayoutPhone;
     TextInputEditText inputEmail, inputPassword, inputName, inputPhone;
     ImageView imgLogo;
+    String name, email, password, phone;
+
+    private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
 
     @Override
@@ -73,10 +78,10 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                String name = inputName.getText().toString();
-                String phone = inputPhone.getText().toString();
+                name = inputName.getText().toString();
+                email = inputEmail.getText().toString();
+                password = inputPassword.getText().toString();
+                 phone = inputPhone.getText().toString();
 
                 if (isValid(email, password, name, phone)){
                     mAuth.createUserWithEmailAndPassword(email, password)
@@ -84,6 +89,20 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+
+                                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.d(TAG, "User profile updated.");
+                                                        } else {
+                                                            Toast.makeText(RegisterActivity.this, "User profile fail!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
                                         Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                                         startActivity(intent);
@@ -91,10 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
                                         // If sign in fails, display a message to the user.
-    //                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-    //                                    Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-    //                                            Toast.LENGTH_SHORT).show();
-    //                                    updateUI(null);
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     }
 
                                 }

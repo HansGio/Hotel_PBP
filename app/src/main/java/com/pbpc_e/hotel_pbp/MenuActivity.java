@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,15 +33,22 @@ public class MenuActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         String userEmail = "email@email.com";
+        String displayName = "Name";
+
         if (user != null) {
             userEmail = user.getEmail();
+            displayName = user.getDisplayName();
         } else {
             // No user is signed in
         }
+
         View header = navigationView.getHeaderView(0);
-        TextView email = header.findViewById(R.id.textView);
-        email.setText(userEmail);
+        TextView tvEmail = header.findViewById(R.id.text_email);
+        TextView tvName = header.findViewById(R.id.text_name);
+        tvEmail.setText(userEmail);
+        tvName.setText(displayName);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

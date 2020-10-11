@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setExitTransition(null);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String CHANNEL_ID = "Channel 1";
             CharSequence name = "Channel 1";
             String description = "This is Channel 1";
@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            String msg = "Successful";
-                            if(!task.isSuccessful()) msg = "Failed";
-                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            if (!task.isSuccessful())
+                                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -82,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                if(FirebaseAuth.getInstance().getCurrentUser() != null) intent = new Intent(MainActivity.this, MenuActivity.class);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null)
+                    intent = new Intent(MainActivity.this, MenuActivity.class);
                 else intent = new Intent(MainActivity.this, LoginActivity.class);
 
 //                Pair[] pairs = new Pair[3];
