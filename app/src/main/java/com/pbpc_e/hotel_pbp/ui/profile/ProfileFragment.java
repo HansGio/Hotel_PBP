@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class ProfileFragment extends Fragment {
     private int RESULT_OK = -1;
 
     TextView textName, textEmail, textPhone;
+    ProgressBar progressBar;
     ImageView imageProfile;
     CardView cardCamera;
 
@@ -56,13 +58,15 @@ public class ProfileFragment extends Fragment {
         textPhone = root.findViewById(R.id.text_phone);
         imageProfile = root.findViewById(R.id.profile_image);
         cardCamera = root.findViewById(R.id.camera_card);
+        progressBar = root.findViewById(R.id.progressBar);
 
+        progressBar.setVisibility(View.VISIBLE);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
             textEmail.setText(user.getEmail());
             textName.setText(user.getDisplayName());
-            if(user.getPhoneNumber() != null){
+            if(user.getPhoneNumber() != null && !user.getPhoneNumber().isEmpty()){
                 textPhone.setText(user.getPhoneNumber());
             }
             if(user.getPhotoUrl() != null){
@@ -71,6 +75,8 @@ public class ProfileFragment extends Fragment {
                         .into(imageProfile);
             }
         }
+        checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
+        progressBar.setVisibility(View.INVISIBLE);
 
         imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +85,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
 
         return root;
     }
@@ -108,10 +113,10 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageProfile.setImageBitmap(imageBitmap);
 
+            progressBar.setVisibility(View.VISIBLE);
             handleUpload(imageBitmap);
         }
     }
@@ -160,12 +165,14 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getActivity(), "Failed to update picture", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
     }
