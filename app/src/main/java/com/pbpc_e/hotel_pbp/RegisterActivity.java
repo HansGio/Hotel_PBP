@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputLayoutPhone = findViewById(R.id.input_layout_phone);
         inputEmail = findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
-        inputName= findViewById(R.id.input_name);
+        inputName = findViewById(R.id.input_name);
         inputPhone = findViewById(R.id.input_phone);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +81,9 @@ public class RegisterActivity extends AppCompatActivity {
                 name = inputName.getText().toString();
                 email = inputEmail.getText().toString();
                 password = inputPassword.getText().toString();
-                 phone = inputPhone.getText().toString();
+                phone = inputPhone.getText().toString();
 
-                if (isValid(email, password, name, phone)){
+                if (isValid(email, password, name, phone)) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -94,15 +94,15 @@ public class RegisterActivity extends AppCompatActivity {
                                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
 
                                         user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Log.d(TAG, "User profile updated.");
-                                                        } else {
-                                                            Toast.makeText(RegisterActivity.this, "User profile fail!", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "User profile updated.");
+                                                } else {
+                                                    Toast.makeText(RegisterActivity.this, "User profile fail!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                         Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                                         startActivity(intent);
@@ -150,27 +150,27 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isValid(String email, String password, String name, String phone) {
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             inputLayoutEmail.setError("Please enter email");
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             inputLayoutEmail.setError("Invalid email");
         } else inputLayoutEmail.setError(null);
 
         if (password.isEmpty()) {
             inputLayoutPassword.setError("Please enter password");
-        } else if (password.length() < 6){
+        } else if (password.length() < 6) {
             inputLayoutPassword.setError("Password too short");
         } else inputLayoutPassword.setError(null);
 
         if (name.isEmpty()) {
             inputLayoutName.setError("Please enter name");
-        } else if (name.length() < 6){
+        } else if (name.length() < 6) {
             inputLayoutName.setError("Name too short");
         } else inputLayoutName.setError(null);
 
         if (phone.isEmpty()) {
             inputLayoutPhone.setError("Please enter phone number");
-        } else if (phone.length() < 6){
+        } else if (phone.length() < 6) {
             inputLayoutPhone.setError("Phone too short");
         } else inputLayoutPhone.setError(null);
 

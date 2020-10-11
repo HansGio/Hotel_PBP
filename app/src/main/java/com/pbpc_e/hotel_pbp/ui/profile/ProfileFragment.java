@@ -159,13 +159,13 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(), "Profile picture updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Profile picture updated", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Failed to update picture", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Failed to update picture", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
