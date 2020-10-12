@@ -7,16 +7,40 @@
     android:layout_margin="16dp"
     tools:context=".SettingActivity">
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switch1"
-        style="switch"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Dark Mode"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/image_theme"
+            android:layout_gravity="center"
+            android:layout_width="170dp"
+            android:layout_height="120dp"
+            android:src="@drawable/cloud_day"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginVertical="16dp"
+            android:text="Dark Mode"
+            style="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textAlignment="center"
+            android:text="Use dark mode to reduce\n eye strain."/>
+
+        <Button
+            android:id="@+id/button_darkmode"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Enable Dark Mode"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

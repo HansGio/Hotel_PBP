@@ -7,7 +7,10 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -19,29 +22,39 @@ public class SettingActivity extends AppCompatActivity {
     SharedPreferences preferences;
     boolean isDarkMode;
 
-    SwitchMaterial aSwitch;
+    Button btnDarkMode;
+    ImageView imageTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        aSwitch = findViewById(R.id.switch1);
+        btnDarkMode = findViewById(R.id.button_darkmode);
+        imageTheme = findViewById(R.id.image_theme);
         loadPreferences();
 
         if (isDarkMode) {
-            aSwitch.setChecked(true);
+            btnDarkMode.setText("Disable Dark Mode");
+            imageTheme.setImageResource(R.drawable.cloud_night);
+        } else {
+            btnDarkMode.setText("Enable Dark Mode");
+            imageTheme.setImageResource(R.drawable.cloud_day);
         }
 
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnDarkMode.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    isDarkMode = true;
-                } else {
+            public void onClick(View view) {
+                if(isDarkMode){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    btnDarkMode.setText("Enable Dark Mode");
+                    imageTheme.setImageResource(R.drawable.cloud_day);
                     isDarkMode = false;
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    btnDarkMode.setText("Disable Dark Mode");
+                    imageTheme.setImageResource(R.drawable.cloud_night);
+                    isDarkMode = true;
                 }
                 savePreferences();
             }
