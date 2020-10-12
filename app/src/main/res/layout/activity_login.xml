@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_bold"
-            android:text="Hello,\nwelcome back"
+            android:text="@string/login_title"
             android:textAllCaps="true"
             android:textSize="36sp"
             android:transitionName="title" />
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Please login to continue"
+            android:text="@string/login_description"
             android:textSize="16sp"
             android:transitionName="subtitle" />
 
@@ -44,7 +44,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="@string/e_mail"
             android:transitionName="email"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_email_24">
@@ -61,7 +61,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:transitionName="password"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true"
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
-            android:text="Login"
+            android:text="@string/login_button"
             android:transitionName="main_button" />
 
         <Button
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="New user? Register now"
+            android:text="@string/register_now_button"
             android:textSize="12sp"
             android:transitionName="sub_button" />
     </LinearLayout>

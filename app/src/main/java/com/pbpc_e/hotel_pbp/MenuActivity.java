@@ -68,6 +68,7 @@ public class MenuActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
                 return false;
             }
         });

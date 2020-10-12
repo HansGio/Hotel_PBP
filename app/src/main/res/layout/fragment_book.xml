@@ -44,7 +44,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="0 night(s)"
+                        android:text="@string/default_duration"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="Duration"
+                        android:text="@string/duration"
                         app:layout_constraintBottom_toTopOf="@+id/textView3"
                         app:layout_constraintStart_toStartOf="@+id/textView3" />
 
@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="Check-in"
+                        android:text="@string/check_in"
                         app:layout_constraintBottom_toTopOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@+id/textView" />
 
@@ -76,7 +76,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="Pick a date"
+                        android:text="@string/default_date"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
                         app:layout_constraintEnd_toStartOf="@+id/textView3"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -88,7 +88,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="Pick a date"
+                        android:text="@string/default_date"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/textView2"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="Check-out"
+                        android:text="@string/check_out"
                         app:layout_constraintBottom_toTopOf="@+id/textView2"
                         app:layout_constraintStart_toStartOf="@+id/textView2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:paddingBottom="0dp"
-                    android:text="Search" />
+                    android:text="@string/search" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

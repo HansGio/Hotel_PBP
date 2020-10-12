@@ -10,5 +10,40 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
+    <string name="dark_mode_description">Use dark mode to reduce\n eye strain.</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dark_mode_button">Enable Dark Mode</string>
+    <string name="login_title">Hello,\nwelcome back</string>
+    <string name="login_description">Please login to continue</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_now_button">New user? Register now</string>
+    <string name="cloud_hotel_yogyakarta">Cloud Hotel Yogyakarta</string>
+    <string name="cloud_hotel_address">Jl. Babarsari No.43, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</string>
+    <string name="register_title">welcome</string>
+    <string name="register_description">Please register to continue</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="register_button">Register</string>
+    <string name="already_have_button">Already have an account? Login</string>
+    <string name="desc">Desc</string>
+    <string name="facilities">Facilities</string>
+    <string name="idr">IDR</string>
+    <string name="night">/ night</string>
+    <string name="about_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget volutpat nibh. Sed feugiat justo nec felis blandit, et pretium risus eleifend. Etiam vel ligula mauris. Sed mi odio, pellentesque nec commodo sed, accumsan eget risus. Mauris neque nisl, tristique sit amet enim eu, efficitur vehicula sapien.</string>
+    <string name="about_button">Show Location On Map</string>
+    <string name="default_duration">0 night(s)</string>
+    <string name="duration">Duration</string>
+    <string name="check_in">Check-in</string>
+    <string name="default_date">Pick a date</string>
+    <string name="check_out">Check-out</string>
+    <string name="search">Search</string>
+    <string name="book_now">Book Now</string>
+    <string name="profile">Profile</string>
+    <string name="about_us">About Us</string>
+    <string name="default_name">Name Full Name</string>
+    <string name="default_email">example@example.com</string>
+    <string name="default_phone">123456789</string>
 
 </resources>
