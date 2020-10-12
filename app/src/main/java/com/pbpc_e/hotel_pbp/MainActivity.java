@@ -2,10 +2,12 @@ package com.pbpc_e.hotel_pbp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,10 +21,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String PREF_NAME = "Theme";
+
+    SharedPreferences preferences;
+    boolean isDarkMode;
 
     Animation bottomAnim, topAnim, fadeAnim;
     ImageView imgLogo, imgStar1, imgStar2, imgStar3, imgStar4, imgStar5;
@@ -34,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         getWindow().setExitTransition(null);
+
+        loadPreferences();
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String CHANNEL_ID = "Channel 1";
@@ -103,5 +118,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 3500);
 
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("darkMode", isDarkMode);
+        editor.apply();
+    }
+
+    private void loadPreferences() {
+        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        isDarkMode = preferences.getBoolean("darkMode", false);
     }
 }
