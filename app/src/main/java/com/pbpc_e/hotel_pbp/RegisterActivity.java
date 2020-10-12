@@ -164,13 +164,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (name.isEmpty()) {
             inputLayoutName.setError("Please enter name");
-        } else if (name.length() < 6) {
+        } else if (name.length() < 3) {
             inputLayoutName.setError("Name too short");
         } else inputLayoutName.setError(null);
 
         if (phone.isEmpty()) {
             inputLayoutPhone.setError("Please enter phone number");
-        } else if (phone.length() < 6) {
+        } else if (phone.length() < 11) {
             inputLayoutPhone.setError("Phone too short");
         } else inputLayoutPhone.setError(null);
 
