@@ -1,6 +1,5 @@
 package com.pbpc_e.hotel_pbp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
@@ -8,23 +7,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.util.Pair;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,10 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName, inputLayoutPhone;
     TextInputEditText inputEmail, inputPassword, inputName, inputPhone;
     ImageView imgLogo;
-    String name, email, password, phone;
 
     private static final String TAG = "RegisterActivity";
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
 
     @Override
     public void onBackPressed() {
@@ -46,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
     }
 
@@ -58,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setEnterTransition(null);
         getWindow().setExitTransition(null);
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
         btnLogin = findViewById(R.id.button_login);
         btnRegister = findViewById(R.id.button_register);
         imgLogo = findViewById(R.id.image_logo);
@@ -75,47 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
         inputPhone = findViewById(R.id.input_phone);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                name = inputName.getText().toString();
-                email = inputEmail.getText().toString();
-                password = inputPassword.getText().toString();
-                phone = inputPhone.getText().toString();
-
-                if (isValid(email, password, name, phone)) {
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-
-                                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d(TAG, "User profile updated.");
-                                                } else {
-                                                    Toast.makeText(RegisterActivity.this, "User profile fail!", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                                        Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(RegisterActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    }
-
-                                }
-                            });
-                }
+                register();
             }
         });
 
@@ -123,60 +81,77 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-
-                Pair[] pairs = new Pair[7];
-                pairs[0] = new Pair<View, String>(imgLogo, "logo");
-                pairs[1] = new Pair<View, String>(tvTitle, "title");
-                pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
-                pairs[3] = new Pair<View, String>(btnRegister, "main_button");
-                pairs[4] = new Pair<View, String>(btnLogin, "sub_button");
-                pairs[5] = new Pair<View, String>(inputLayoutName, "email");
-                pairs[6] = new Pair<View, String>(inputLayoutPassword, "password");
-
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(intent, options.toBundle());
-
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                }, 1000);
+                startLoginActivity();
             }
         });
-
-
     }
 
-    private boolean isValid(String email, String password, String name, String phone) {
-        if (email.isEmpty()) {
-            inputLayoutEmail.setError("Please enter email");
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            inputLayoutEmail.setError("Invalid email");
-        } else inputLayoutEmail.setError(null);
+    public void startLoginActivity() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
 
-        if (password.isEmpty()) {
-            inputLayoutPassword.setError("Please enter password");
-        } else if (password.length() < 6) {
-            inputLayoutPassword.setError("Password too short");
-        } else inputLayoutPassword.setError(null);
+        Pair[] pairs = new Pair[7];
+        pairs[0] = new Pair<View, String>(imgLogo, "logo");
+        pairs[1] = new Pair<View, String>(tvTitle, "title");
+        pairs[2] = new Pair<View, String>(tvSubtitle, "subtitle");
+        pairs[3] = new Pair<View, String>(btnRegister, "main_button");
+        pairs[4] = new Pair<View, String>(btnLogin, "sub_button");
+        pairs[5] = new Pair<View, String>(inputLayoutName, "email");
+        pairs[6] = new Pair<View, String>(inputLayoutPassword, "password");
 
-        if (name.isEmpty()) {
-            inputLayoutName.setError("Please enter name");
-        } else if (name.length() < 3) {
-            inputLayoutName.setError("Name too short");
-        } else inputLayoutName.setError(null);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+        startActivity(intent, options.toBundle());
 
-        if (phone.isEmpty()) {
-            inputLayoutPhone.setError("Please enter phone number");
-        } else if (phone.length() < 11) {
-            inputLayoutPhone.setError("Phone too short");
-        } else inputLayoutPhone.setError(null);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
+    }
 
-        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-                !password.isEmpty() && password.length() >= 6 &&
-                !name.isEmpty() && name.length() >= 6 &&
-                !phone.isEmpty() && phone.length() >= 6;
+    private void register() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserResponse> add = apiService.register(inputName.getText().toString(), inputEmail.getText().toString(), inputPassword.getText().toString(), inputPhone.getText().toString());
+
+        add.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                inputLayoutEmail.setError(null);
+                inputLayoutPassword.setError(null);
+                inputLayoutName.setError(null);
+                inputLayoutPhone.setError(null);
+
+//                progressDialog.dismiss();
+                if(response.code() == 200) {
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    startLoginActivity();
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+
+                        if(jObjError.get("message") instanceof JSONObject){
+                            if (jObjError.getJSONObject("message").has("email")) {
+                                inputLayoutEmail.setError(jObjError.getJSONObject("message").getJSONArray("email").get(0).toString());
+                            } if (jObjError.getJSONObject("message").has("password")) {
+                                inputLayoutPassword.setError(jObjError.getJSONObject("message").getJSONArray("password").get(0).toString());
+                            } if (jObjError.getJSONObject("message").has("name")) {
+                                inputLayoutName.setError(jObjError.getJSONObject("message").getJSONArray("name").get(0).toString());
+                            } if (jObjError.getJSONObject("message").has("phone")) {
+                                inputLayoutPhone.setError(jObjError.getJSONObject("message").getJSONArray("phone").get(0).toString());
+                            }
+                        } else
+                            Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressDialog.dismiss();
+            }
+        });
     }
 }

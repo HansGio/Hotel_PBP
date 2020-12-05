@@ -21,16 +21,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String PREF_NAME = "Theme";
+    private static final String THEME_PREF_NAME = "Theme";
+    private static final String USER_PREF_NAME = "User";
 
-    SharedPreferences preferences;
+    SharedPreferences preferencesTheme, preferencesUser;
     boolean isDarkMode;
+    String email = "", token = "";
+    int id = -1;
 
     Animation bottomAnim, topAnim, fadeAnim;
     ImageView imgLogo, imgStar1, imgStar2, imgStar3, imgStar4, imgStar5;
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                if (FirebaseAuth.getInstance().getCurrentUser() != null)
+                Intent intent;
+                if (!token.isEmpty())
                     intent = new Intent(MainActivity.this, MenuActivity.class);
                 else intent = new Intent(MainActivity.this, LoginActivity.class);
 
@@ -121,13 +122,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void savePreferences() {
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = preferencesTheme.edit();
         editor.putBoolean("darkMode", isDarkMode);
         editor.apply();
     }
 
     private void loadPreferences() {
-        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        isDarkMode = preferences.getBoolean("darkMode", false);
+        preferencesTheme = getSharedPreferences(THEME_PREF_NAME, MODE_PRIVATE);
+        isDarkMode = preferencesTheme.getBoolean("darkMode", false);
+
+        preferencesUser = getSharedPreferences(USER_PREF_NAME, MODE_PRIVATE);
+        email = preferencesUser.getString("email", "");
+        token = preferencesUser.getString("token", "");
+        id = preferencesUser.getInt("id", -1);
     }
 }

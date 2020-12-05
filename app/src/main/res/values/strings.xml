@@ -45,5 +45,7 @@
     <string name="default_name">Name Full Name</string>
     <string name="default_email">example@example.com</string>
     <string name="default_phone">123456789</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reservation">My Room</string>
 
 </resources>

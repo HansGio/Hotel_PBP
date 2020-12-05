@@ -1,36 +1,44 @@
 package com.pbpc_e.hotel_pbp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Pair;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private static final String USER_PREF_NAME = "User";
+
+    SharedPreferences preferences;
+    String token = "";
+    int id = -1;
 
     Button btnRegister, btnLogin;
     TextView tvTitle, tvSubtitle;
     TextInputLayout inputLayoutEmail, inputLayoutPassword;
     ImageView imgLogo;
     TextInputEditText inputEmail, inputPassword;
-    FirebaseAuth fAuth;
+//    FirebaseAuth fAuth;
 
     @Override
     public void onBackPressed() {
@@ -54,32 +62,30 @@ public class LoginActivity extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.input_layout_password);
         inputEmail = findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
-        fAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-
-                if (isValid(email, password)) {
-                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Log in failed!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-                }
+                login();
+//                String email = inputEmail.getText().toString();
+//                String password = inputPassword.getText().toString();
+//
+//                if (isValid(email, password)) {
+//                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(LoginActivity.this, "Log in successful!", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            } else {
+//                                Toast.makeText(LoginActivity.this, "Log in failed!", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        }
+//                    });
+//                }
             }
         });
 
@@ -108,22 +114,75 @@ public class LoginActivity extends AppCompatActivity {
                 }, 1000);
             }
         });
-
     }
 
-    private boolean isValid(String email, String password) {
-        if (email.isEmpty()){
-            inputLayoutEmail.setError("Please enter email");
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            inputLayoutEmail.setError("Invalid email");
-        } else inputLayoutEmail.setError(null);
+    private void login() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserResponse> add = apiService.login(inputEmail.getText().toString(), inputPassword.getText().toString());
 
-        if (password.isEmpty()) {
-            inputLayoutPassword.setError("Please enter password");
-        } else if (password.length() < 6){
-            inputLayoutPassword.setError("Password too short");
-        } else inputLayoutPassword.setError(null);
+        add.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                inputLayoutEmail.setError(null);
+                inputLayoutPassword.setError(null);
 
-        return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.isEmpty() && password.length() >= 6;
+//                progressDialog.dismiss();
+                if(response.code() == 200) {
+                    if (response.body().getUser() != null){
+                        id = response.body().getUser().getId();
+                        token = response.body().getAccessToken();
+                    }
+                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+
+                        if(jObjError.get("message") instanceof JSONObject){
+                            if (jObjError.getJSONObject("message").has("email")) {
+                                inputLayoutEmail.setError(jObjError.getJSONObject("message").getJSONArray("email").get(0).toString());
+                            } if (jObjError.getJSONObject("message").has("password")) {
+                                inputLayoutPassword.setError(jObjError.getJSONObject("message").getJSONArray("password").get(0).toString());
+                            }
+                        } else
+                            Toast.makeText(LoginActivity.this, jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                if (id != -1 && !token.isEmpty()){
+                    savePreferences();
+                    Intent i;
+//                    if(email.equals("admin")){
+//                        i = new Intent(LoginActivity.this, MenuActivity.class);
+//                    }
+//                    else{
+                        i = new Intent(LoginActivity.this, MenuActivity.class);
+//                    }
+                    startActivity(i);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void savePreferences() {
+        preferences = getSharedPreferences(USER_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("id", id);
+        editor.putString("token", token);
+        editor.apply();
+    }
+
+    private void loadPreferences() {
+        preferences = getSharedPreferences(USER_PREF_NAME, MODE_PRIVATE);
+        token = preferences.getString("token", "");
+        id = preferences.getInt("id", -1);
     }
 }
