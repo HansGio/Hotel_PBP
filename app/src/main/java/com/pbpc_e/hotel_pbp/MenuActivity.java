@@ -72,6 +72,7 @@ public class MenuActivity extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                logout();
                 deletePreferences();
                 Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -112,6 +113,34 @@ public class MenuActivity extends AppCompatActivity {
 
                         Toast.makeText(MenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(MenuActivity.this, jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(MenuActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void logout() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserResponse> call = apiService.logout("Bearer " + token);
+
+        call.enqueue(new Callback<UserResponse>() {
+            private static final String TAG = "MenuActivity";
+
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(MenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
