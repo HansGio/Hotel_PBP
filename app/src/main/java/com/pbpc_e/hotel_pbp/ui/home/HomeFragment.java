@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     ImageSlider imageSlider;
-    CardView cardViewBook, cardViewAbout, cardViewProfile;
+    CardView cardViewBook, cardViewAbout, cardViewProfile, cardViewReservation;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
         cardViewAbout = root.findViewById(R.id.cardview_about);
         cardViewBook = root.findViewById(R.id.cardview_book);
         cardViewProfile = root.findViewById(R.id.cardview_profile);
+        cardViewReservation = root.findViewById(R.id.cardview_reservation);
 
         cardViewAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_profile);
+            }
+        });
+        cardViewReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_reservation);
             }
         });
 

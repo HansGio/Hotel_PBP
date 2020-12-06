@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_baseline_hotel_24"
             android:title="Book a Room Now!" />
         <item
+            android:id="@+id/nav_reservation"
+            android:icon="@drawable/ic_baseline_book_24"
+            android:title="My Room" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_baseline_location_on_24"
             android:title="About Us" />

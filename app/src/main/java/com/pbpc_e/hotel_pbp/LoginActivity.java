@@ -3,6 +3,7 @@ package com.pbpc_e.hotel_pbp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout inputLayoutEmail, inputLayoutPassword;
     ImageView imgLogo;
     TextInputEditText inputEmail, inputPassword;
+    ProgressDialog progressDialog;
 //    FirebaseAuth fAuth;
 
     @Override
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.input_layout_password);
         inputEmail = findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
+        progressDialog = new ProgressDialog(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,13 +123,14 @@ public class LoginActivity extends AppCompatActivity {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> add = apiService.login(inputEmail.getText().toString(), inputPassword.getText().toString());
 
+        progressDialog.show();
         add.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 inputLayoutEmail.setError(null);
                 inputLayoutPassword.setError(null);
 
-//                progressDialog.dismiss();
+                progressDialog.dismiss();
                 if(response.code() == 200) {
                     if (response.body().getUser() != null){
                         id = response.body().getUser().getId();
@@ -167,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         });
     }

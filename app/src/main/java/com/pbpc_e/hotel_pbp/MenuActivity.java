@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_book, R.id.nav_about)
+                R.id.nav_home, R.id.nav_book, R.id.nav_reservation, R.id.nav_about)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -73,10 +73,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 logout();
-                deletePreferences();
-                Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
                 return false;
             }
         });
@@ -141,6 +137,10 @@ public class MenuActivity extends AppCompatActivity {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.code() == 200) {
                     Toast.makeText(MenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    deletePreferences();
+                    Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());

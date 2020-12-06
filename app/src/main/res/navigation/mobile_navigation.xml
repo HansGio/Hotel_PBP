@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_profile"
             app:destination="@id/nav_profile" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_reservation"
+            app:destination="@id/nav_reservation" />
     </fragment>
 
     <fragment
@@ -38,6 +41,12 @@
         android:name="com.pbpc_e.hotel_pbp.ui.about.AboutFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_reservation"
+        android:name="com.pbpc_e.hotel_pbp.ui.reservation.ReservationFragment"
+        android:label="My Room"
+        tools:layout="@layout/fragment_reservation" />
 
 
 </navigation>
