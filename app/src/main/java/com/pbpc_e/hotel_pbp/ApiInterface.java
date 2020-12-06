@@ -44,6 +44,9 @@ public interface ApiInterface {
                                 @Field("password") String password,
                                 @Field("phone") String phone);
 
+    @GET("logout")
+    Call<UserResponse> logout(@Header("Authorization") String authHeader);
+
     @GET("details")
     Call<UserResponse> details(@Header("Authorization") String authHeader);
 
