@@ -3,6 +3,7 @@ package com.pbpc_e.hotel_pbp;
 import androidx.room.Room;
 
 import com.pbpc_e.hotel_pbp.ui.book.RoomResponse;
+import com.pbpc_e.hotel_pbp.ui.reservation.ReservationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -76,6 +77,16 @@ public interface ApiInterface {
                                 @Path("id") String id);
 
     @PUT("room/cancel/{id}")
-    Call<RoomResponse> unbookRoom(@Header("Authorization") String authHeader,
+    Call<RoomResponse> cancelRoom(@Header("Authorization") String authHeader,
                                   @Path("id") String id);
+
+    @POST("reservation")
+    @FormUrlEncoded
+    Call<ReservationResponse> createReservation(@Header("Authorization") String authHeader,
+                                                @Field("room_id") int room_id,
+                                                @Field("user_id") int user_id,
+                                                @Field("nights") int nights,
+                                                @Field("check_in") String checkIn,
+                                                @Field("check_out") String checkOut,
+                                                @Field("total") double total);
 }

@@ -46,7 +46,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class BookFragment extends Fragment {
 
@@ -54,7 +53,7 @@ public class BookFragment extends Fragment {
 
     private ArrayList<RoomDAO> rooms;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
+    private RoomRecyclerViewAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     SharedPreferences preferences;
@@ -66,6 +65,7 @@ public class BookFragment extends Fragment {
     FragmentBookBinding binding;
     String token, startDateString = "", endDateString = "";
     long daysDiff = -1;
+    int userId;
     ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefresh;
 
@@ -109,12 +109,15 @@ public class BookFragment extends Fragment {
                 long diff = endDate - startDate;
                 daysDiff = TimeUnit.MILLISECONDS.toDays(diff);
                 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-                startDateString = formatter.format(new Date(startDate));
-                endDateString = formatter.format(new Date(endDate));
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                startDateString = formatter2.format(new Date(startDate));
+                String startDateString2 = formatter.format(new Date(startDate));
+                endDateString = formatter2.format(new Date(endDate));
+                String endDateString2 = formatter.format(new Date(endDate));
 
-                tv1.setText(startDateString);
+                tv1.setText(startDateString2);
                 adapter.setCheckIn(startDateString);
-                tv2.setText(endDateString);
+                tv2.setText(endDateString2);
                 adapter.setCheckOut(endDateString);
                 tv3.setText(daysDiff + " night(s)");
                 adapter.setNight((int) daysDiff);
@@ -168,8 +171,9 @@ public class BookFragment extends Fragment {
         recyclerView = binding.recyclerViewKamar;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new RecyclerViewAdapter(getContext(), rooms);
+        adapter = new RoomRecyclerViewAdapter(getContext(), rooms);
         adapter.setToken(token);
+        adapter.setUserId(userId);
         if (!inputPerson.getText().toString().isEmpty())
             adapter.getFilter().filter(inputPerson.getText().toString());
         recyclerView.setAdapter(adapter);
@@ -195,5 +199,6 @@ public class BookFragment extends Fragment {
     private void loadPreferences() {
         preferences = getActivity().getSharedPreferences(USER_PREF_NAME, MODE_PRIVATE);
         token = preferences.getString("token", "");
+        userId = preferences.getInt("id", 0);
     }
 }
