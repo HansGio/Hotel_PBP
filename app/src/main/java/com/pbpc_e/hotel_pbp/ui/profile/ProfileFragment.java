@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
     CardView cardCamera;
     String token, imageString = "";
 
-    FirebaseUser user;
+//    FirebaseUser user;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

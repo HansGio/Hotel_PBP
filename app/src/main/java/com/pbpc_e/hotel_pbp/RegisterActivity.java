@@ -3,6 +3,7 @@ package com.pbpc_e.hotel_pbp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout inputLayoutEmail, inputLayoutPassword, inputLayoutName, inputLayoutPhone;
     TextInputEditText inputEmail, inputPassword, inputName, inputPhone;
     ImageView imgLogo;
+    ProgressDialog progressDialog;
 
     private static final String TAG = "RegisterActivity";
 //    private FirebaseAuth mAuth;
@@ -69,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.input_password);
         inputName = findViewById(R.id.input_name);
         inputPhone = findViewById(R.id.input_phone);
+        progressDialog = new ProgressDialog(this);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> add = apiService.register(inputName.getText().toString(), inputEmail.getText().toString(), inputPassword.getText().toString(), inputPhone.getText().toString());
 
+        progressDialog.show();
         add.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -121,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                 inputLayoutName.setError(null);
                 inputLayoutPhone.setError(null);
 
-//                progressDialog.dismiss();
+                progressDialog.dismiss();
                 if(response.code() == 200) {
                     Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     startLoginActivity();
@@ -150,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         });
     }

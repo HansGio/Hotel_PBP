@@ -1,11 +1,16 @@
 package com.pbpc_e.hotel_pbp;
 
+import androidx.room.Room;
+
+import com.pbpc_e.hotel_pbp.ui.book.RoomResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -62,4 +67,15 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<UserResponse> uploadImage(@Header("Authorization") String authHeader,
                                    @Field("image64") String image64);
+
+    @GET("room/available")
+    Call<RoomResponse> getAvailableRooms(@Header("Authorization") String authHeader);
+
+    @PUT("room/book/{id}")
+    Call<RoomResponse> bookRoom(@Header("Authorization") String authHeader,
+                                @Path("id") String id);
+
+    @PUT("room/cancel/{id}")
+    Call<RoomResponse> unbookRoom(@Header("Authorization") String authHeader,
+                                  @Path("id") String id);
 }
