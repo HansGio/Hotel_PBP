@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ReservationResponse {
 
-    @SerializedName("room")
+    @SerializedName("reservation")
     private ReservationDAO reservation = null;
 
-    @SerializedName("rooms")
+    @SerializedName("reservations")
     private List<ReservationDAO> reservations = null;
 
     @SerializedName("message")

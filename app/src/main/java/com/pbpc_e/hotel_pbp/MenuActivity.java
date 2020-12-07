@@ -106,8 +106,6 @@ public class MenuActivity extends AppCompatActivity {
 
                         tvEmail.setText(userEmail);
                         tvName.setText(displayName);
-
-                        Toast.makeText(MenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     try {
@@ -127,6 +125,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void logout() {
+        deletePreferences();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> call = apiService.logout("Bearer " + token);
 
@@ -137,7 +136,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.code() == 200) {
                     Toast.makeText(MenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    deletePreferences();
+
                     Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();

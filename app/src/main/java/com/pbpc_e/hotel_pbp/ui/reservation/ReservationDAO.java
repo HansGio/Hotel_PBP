@@ -16,6 +16,9 @@ public class ReservationDAO {
     @SerializedName("nights")
     private int nights;
 
+    @SerializedName("persons")
+    private int persons;
+
     @SerializedName("check_in")
     private String checkIn;
 
@@ -24,6 +27,14 @@ public class ReservationDAO {
 
     @SerializedName("total")
     private double total;
+
+    public int getPersons() {
+        return persons;
+    }
+
+    public void setPersons(int persons) {
+        this.persons = persons;
+    }
 
     public int getId() {
         return id;

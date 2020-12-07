@@ -72,8 +72,6 @@ public class RoomDAO {
     public static void loadImage(ImageView imageView, String imgURL) {
         Glide.with(imageView)
                 .load(ApiClient.BASE_URL + "img/" + imgURL)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
                 .placeholder(R.drawable.itemdefault)
                 .into(imageView);
     }

@@ -6,6 +6,7 @@ import com.pbpc_e.hotel_pbp.ui.book.RoomResponse;
 import com.pbpc_e.hotel_pbp.ui.reservation.ReservationResponse;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -72,13 +73,21 @@ public interface ApiInterface {
     @GET("room/available")
     Call<RoomResponse> getAvailableRooms(@Header("Authorization") String authHeader);
 
+    @GET("room/{id}")
+    Call<RoomResponse> getRoomById(@Header("Authorization") String authHeader,
+                                   @Path("id") int id);
+
     @PUT("room/book/{id}")
     Call<RoomResponse> bookRoom(@Header("Authorization") String authHeader,
                                 @Path("id") String id);
 
     @PUT("room/cancel/{id}")
     Call<RoomResponse> cancelRoom(@Header("Authorization") String authHeader,
-                                  @Path("id") String id);
+                                  @Path("id") int id);
+
+    @DELETE("reservation/{id}")
+    Call<ReservationResponse> deleteReservation(@Header("Authorization") String authHeader,
+                                                @Path("id") int id);
 
     @POST("reservation")
     @FormUrlEncoded
@@ -86,7 +95,14 @@ public interface ApiInterface {
                                                 @Field("room_id") int room_id,
                                                 @Field("user_id") int user_id,
                                                 @Field("nights") int nights,
+                                                @Field("persons") int persons,
                                                 @Field("check_in") String checkIn,
                                                 @Field("check_out") String checkOut,
                                                 @Field("total") double total);
+
+    @GET("reservation/user/{id}")
+    Call<ReservationResponse> getUserReservation(@Header("Authorization") String authHeader,
+                                                 @Path("id") int userId);
+
+
 }

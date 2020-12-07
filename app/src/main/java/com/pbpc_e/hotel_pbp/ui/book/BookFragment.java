@@ -51,10 +51,9 @@ public class BookFragment extends Fragment {
 
     private static final String USER_PREF_NAME = "User";
 
-    private ArrayList<RoomDAO> rooms;
     private RecyclerView recyclerView;
-    private RoomRecyclerViewAdapter adapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerViewAdapter adapter;
+    private SwipeRefreshLayout swipeRefresh;
 
     SharedPreferences preferences;
     Button btnSearch;
@@ -67,7 +66,6 @@ public class BookFragment extends Fragment {
     long daysDiff = -1;
     int userId;
     ProgressDialog progressDialog;
-    private SwipeRefreshLayout swipeRefresh;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_book, container, false);
@@ -171,7 +169,7 @@ public class BookFragment extends Fragment {
         recyclerView = binding.recyclerViewKamar;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new RoomRecyclerViewAdapter(getContext(), rooms);
+        adapter = new RecyclerViewAdapter(getContext(), rooms);
         adapter.setToken(token);
         adapter.setUserId(userId);
         if (!inputPerson.getText().toString().isEmpty())

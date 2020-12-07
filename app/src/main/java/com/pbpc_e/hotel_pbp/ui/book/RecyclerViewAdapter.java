@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerViewAdapter.MyViewHolder> implements Filterable {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
     private List<RoomDAO> dataList;
@@ -40,7 +40,7 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
     private int person = -1, night = -1, userId;
     ProgressDialog progressDialog;
 
-    public RoomRecyclerViewAdapter(Context context, List<RoomDAO> dataList) {
+    public RecyclerViewAdapter(Context context, List<RoomDAO> dataList) {
         this.context = context;
         this.dataList = dataList;
         this.filteredDataList = dataList;
@@ -106,7 +106,7 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AdapterRecyclerViewBinding adapterRecyclerViewBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()), R.layout.room_adapter_recycler_view, parent, false);
+                LayoutInflater.from(parent.getContext()), R.layout.adapter_recycler_view, parent, false);
 
         MyViewHolder myViewHolder = new MyViewHolder(adapterRecyclerViewBinding);
         return myViewHolder;
@@ -166,7 +166,7 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
 
                                 if (response.code() == 200) {
 //                            Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    Call<ReservationResponse> add = apiService.createReservation("Bearer " + token, room.getId(), userId, night, checkIn, checkOut, night * room.getPricePerNight());
+                                    Call<ReservationResponse> add = apiService.createReservation("Bearer " + token, room.getId(), userId, night, person, checkIn, checkOut, night * room.getPricePerNight());
 
                                     add.enqueue(new Callback<ReservationResponse>() {
                                         @Override
