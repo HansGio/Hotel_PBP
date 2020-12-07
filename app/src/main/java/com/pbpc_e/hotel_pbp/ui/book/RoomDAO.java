@@ -1,5 +1,6 @@
 package com.pbpc_e.hotel_pbp.ui.book;
 
+import android.util.Base64;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -33,7 +34,7 @@ public class RoomDAO {
     @SerializedName("price_per_night")
     private double pricePerNight;
 
-    @SerializedName("image_path")
+    @SerializedName("image64")
     private String image;
 
     public int getId() {
@@ -70,9 +71,18 @@ public class RoomDAO {
 
     @BindingAdapter("android:loadImage")
     public static void loadImage(ImageView imageView, String imgURL) {
-        Glide.with(imageView)
-                .load(ApiClient.BASE_URL + "img/" + imgURL)
-                .placeholder(R.drawable.itemdefault)
-                .into(imageView);
+        if (imgURL != null) {
+            try{
+                byte[] imageByteArray = Base64.decode(imgURL, Base64.DEFAULT);
+                Glide.with(imageView)
+                        .load(imageByteArray)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.itemdefault)
+                        .into(imageView);
+            }catch (Exception e){
+
+            }
+        }
     }
 }

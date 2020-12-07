@@ -13,7 +13,7 @@ public class UserDAO {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("image_path")
+    @SerializedName("image64")
     private String image;
 
     @SerializedName("phone")

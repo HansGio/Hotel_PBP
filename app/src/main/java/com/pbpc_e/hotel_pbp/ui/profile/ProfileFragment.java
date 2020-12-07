@@ -215,12 +215,11 @@ public class ProfileFragment extends Fragment {
                         inputName.setText(displayName);
                         inputPhone.setText(phone);
 
-                        String url = ApiClient.BASE_URL + "img/" + response.body().getUser().getImage();
-                        Log.d("URL: ", url);
 
-                        if (!response.body().getUser().getImage().isEmpty()) {
+                        if (response.body().getUser().getImage() != null) {
+                            byte[] imageByteArray = Base64.decode(response.body().getUser().getImage(), Base64.DEFAULT);
                             Glide.with(getContext())
-                                    .load(url)
+                                    .load(imageByteArray)
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .skipMemoryCache(true)
                                     .placeholder(R.drawable.ic_baseline_account_circle_24)

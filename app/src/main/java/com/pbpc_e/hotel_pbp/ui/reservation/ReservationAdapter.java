@@ -3,6 +3,7 @@ package com.pbpc_e.hotel_pbp.ui.reservation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,10 +164,19 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                     holder.textViewRate.setText("IDR " + String.format("%.2f", response.body().getRoom().getPricePerNight()) + " / Night");
 
                     String url = ApiClient.BASE_URL + "img/" + response.body().getRoom().getImage();
-                    Glide.with(context)
-                            .load(url)
-                            .placeholder(R.drawable.itemdefault)
-                            .into(holder.imageViewRoom);
+                    if ( response.body().getRoom().getImage() != null) {
+                        try{
+                            byte[] imageByteArray = Base64.decode(response.body().getRoom().getImage(), Base64.DEFAULT);
+                            Glide.with(context)
+                                    .load(imageByteArray)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.itemdefault)
+                                    .into(holder.imageViewRoom);
+                        }catch (Exception e){
+
+                        }
+                    }
                 }
             }
 
